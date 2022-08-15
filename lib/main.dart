@@ -44,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                authenticateRoute(
-                    context: context, role: 'super user', route: ScreenOne());
+                authorizeRoute(
+                    context: context, role: 'admin', route: ScreenOne());
               },
               child: const Text('Require admin role'),
             ),
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-void authenticateRoute(
+void authorizeRoute(
     {required BuildContext context,
     required String role,
     required Widget route}) {
@@ -88,6 +88,6 @@ void authenticateRoute(
 
 class AuthenticationFake {
   String getUserRole() {
-    return 'admin';
+    return 'basic';
   }
 }
