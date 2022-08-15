@@ -79,6 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+/// If the user has the required role, navigate to the route. Otherwise, show a snackbar
+///
+/// Args:
+///   context (BuildContext): The context of the current screen.
+///   role (String): The role that the user must have to access the route.
+///   route (Widget): The route you want to navigate to.
+///
+/// Returns:
+///   A function that takes a context, a role, and a route.
 void authorizeRoute(
     {required BuildContext context,
     required String role,
@@ -98,6 +107,16 @@ void authorizeRoute(
   }
 }
 
+/// If the user role is the same as the role passed in, then return the widget passed in, otherwise
+/// return an empty box
+///
+/// Args:
+///   context (BuildContext): The context of the widget.
+///   role (String): The role that the user must have to see the widget.
+///   widget (Widget): The widget to be displayed if the user has the correct role.
+///
+/// Returns:
+///   A widget.
 Widget authorizeWidget(
     {required BuildContext context,
     required String role,
@@ -110,6 +129,8 @@ Widget authorizeWidget(
   }
 }
 
+/// If the user's role matches the role passed in, the child widget is displayed. Otherwise, nothing is
+/// displayed
 class RoleBasedWidget extends StatelessWidget {
   const RoleBasedWidget({Key? key, required this.role, required this.child})
       : super(key: key);
