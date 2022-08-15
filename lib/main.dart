@@ -49,6 +49,18 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Require admin role'),
             ),
+            authorizeWidget(
+              context: context,
+              role: 'admin',
+              widget: ElevatedButton(
+                onPressed: () {
+                  authorizeRoute(
+                      context: context, role: 'admin', route: ScreenOne());
+                },
+                child: const Text('Require admin role'),
+              ),
+            ),
+            RoleBasedWidget(role: 'admin', child: Text('You are an admin!')),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -76,7 +88,7 @@ void authorizeRoute(
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return const ScreenOne();
+        return route;
       }),
     );
   } else {
@@ -86,8 +98,38 @@ void authorizeRoute(
   }
 }
 
+Widget authorizeWidget(
+    {required BuildContext context,
+    required String role,
+    required Widget widget}) {
+  var userRole = AuthenticationFake().getUserRole();
+  if (userRole == role) {
+    return widget;
+  } else {
+    return const SizedBox();
+  }
+}
+
+class RoleBasedWidget extends StatelessWidget {
+  const RoleBasedWidget({Key? key, required this.role, required this.child})
+      : super(key: key);
+
+  final String role;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    var userRole = AuthenticationFake().getUserRole();
+    if (userRole == role) {
+      return child;
+    } else {
+      return const SizedBox();
+    }
+  }
+}
+
 class AuthenticationFake {
   String getUserRole() {
-    return 'basic';
+    return 'admin';
   }
 }
